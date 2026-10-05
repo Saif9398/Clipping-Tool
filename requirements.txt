@@ -1,0 +1,17 @@
+# Core web/backend
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-dotenv>=1.0
+
+# Pipeline
+yt-dlp>=2025.6.9
+faster-whisper>=1.1.0
+scenedetect>=0.6.4
+mediapipe>=0.10.14
+opencv-contrib-python>=4.10
+numpy>=1.26,<3
+soundfile>=0.12
+
+# LLM scoring providers (optional at runtime; local heuristic needs neither)
+openai>=1.60
+google-genai>=1.0

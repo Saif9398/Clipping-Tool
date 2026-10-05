@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipping Tool — Long-form → Vertical</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">Clipping<span> Tool</span></div>
+  <div class="hw">
+    <span id="hw">detecting hardware…</span>
+    <button id="serverRestartBtn" class="header-restart" type="button">Restart server</button>
+    <button id="serverStopBtn" class="header-danger" type="button">Stop server</button>
+    <a href="#" id="logoutLink" class="hidden">log out</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero card">
+    <h1>Paste a video link. Get ready-to-post vertical clips.</h1>
+    <form id="urlForm">
+      <input id="urlInput" type="url" placeholder="https://www.youtube.com/watch?v=…" required>
+      <button type="submit" id="goBtn">Generate clips</button>
+    </form>
+    <div class="alert hidden" id="alert"></div>
+  </section>
+
+  <section class="card hidden" id="progressPanel">
+    <div class="panel-head">
+      <h2 id="jobTitle">Working…</h2>
+      <span class="head-right">
+        <span class="elapsed" id="elapsed"></span>
+        <button id="stopBtn" class="danger hidden">Stop video processing</button>
+      </span>
+    </div>
+    <div class="steps" id="steps"></div>
+  </section>
+
+  <section class="card hidden" id="candidatesPanel">
+    <div class="panel-head">
+      <h2>Pick the clips to render</h2>
+      <div class="minor">
+        <a href="#" id="selAll">select all</a> · <a href="#" id="selNone">none</a>
+      </div>
+    </div>
+    <div id="candidates"></div>
+    <button id="renderBtn" class="primary">Render selected</button>
+  </section>
+
+  <section class="card hidden" id="galleryPanel">
+    <div class="panel-head"><h2>Finished clips</h2><span class="minor" id="outNote"></span></div>
+    <div class="alert hidden" id="galleryAlert"></div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section class="card" id="historyPanel">
+    <div class="panel-head">
+      <h2>History</h2>
+      <button id="clearCacheBtn" class="ghost">Clear cached data</button>
+    </div>
+    <div id="history" class="minor">no jobs yet</div>
+  </section>
+
+  <section class="card" id="settingsPanel">
+    <div class="panel-head"><h2>Settings</h2></div>
+    <div class="settings-row">
+      <label for="providerSelect">Scoring provider</label>
+      <select id="providerSelect">
+        <option value="local">Local (no API key)</option>
+        <option value="openai">OpenAI</option>
+        <option value="gemini">Gemini</option>
+      </select>
+    </div>
+    <div class="settings-row">
+      <label for="openaiKeyInput">OpenAI API key</label>
+      <input id="openaiKeyInput" type="password" placeholder="not set" autocomplete="off">
+      <a href="#" class="clearKey minor" data-target="openaiKeyInput">clear</a>
+    </div>
+    <div class="settings-row">
+      <label for="geminiKeyInput">Gemini API key</label>
+      <input id="geminiKeyInput" type="password" placeholder="not set" autocomplete="off">
+      <a href="#" class="clearKey minor" data-target="geminiKeyInput">clear</a>
+    </div>
+    <button id="saveSettingsBtn">Save settings</button>
+    <div class="alert hidden" id="settingsAlert"></div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

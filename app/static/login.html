@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipping Tool — Log in</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  .login-wrap { max-width: 380px; margin: 12vh auto 0; padding: 0 20px; }
+  .login-wrap .card { display: grid; gap: 14px; }
+  .login-wrap input { width: 100%; }
+  .login-wrap h1 { font-size: 19px; font-weight: 650; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Clip<span>Forge</span></div>
+</header>
+
+<div class="login-wrap">
+  <section class="card">
+    <h1>Log in</h1>
+    <form id="loginForm">
+      <input id="username" type="text" placeholder="username" autocomplete="username" required>
+      <input id="password" type="password" placeholder="password" autocomplete="current-password" required>
+      <button type="submit" id="loginBtn" class="primary">Log in</button>
+    </form>
+    <div class="alert hidden" id="loginAlert"></div>
+  </section>
+</div>
+
+<script>
+"use strict";
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById("loginBtn");
+  const alertBox = document.getElementById("loginAlert");
+  alertBox.classList.add("hidden");
+  btn.disabled = true;
+  try {
+    const r = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: document.getElementById("username").value.trim(),
+        password: document.getElementById("password").value,
+      }),
+    });
+    if (!r.ok) throw new Error(r.status === 401 ? "wrong username or password"
+                                                : "login failed — server error");
+    location.href = "/";
+  } catch (err) {
+    alertBox.textContent = err.message;
+    alertBox.classList.remove("hidden");
+  } finally {
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
